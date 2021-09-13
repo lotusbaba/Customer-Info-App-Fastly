@@ -55,12 +55,7 @@ function getRightApp()
 
 var workingSheetColumnNames = ["Column Titles", "Customer Name", "Customer ID", "Service Name", "Service ID", "CHR", "Hits", "Misses", "Edge Response Header Bytes", "Edge Response Body Bytes", "Origin Fetch Response Header Bytes", "Origin Fetch Response Body Bytes", "Passes", "Video traffic (Response count)", "OTFP Traffic (Response count)", "WAF Requests Logged", "WAF Requests Blocked", "Bandwidth total in GB", "Image Opto Traffic", "Requests", "Edge Requests", "Origin Fetches",  "Uses Shielding", "Uses Image Opto", "Uses GZIP", "Uses WAF", "Uses Logging", "Uses Deliver Stale", "Uses Auto Director", "Uses Segmented Caching", "Uses OTFP", "Snippets", "Streaming miss", "ACLs", "Edge dictionary", "Synthetic response", "ESI response", "Crypto functions", "Uses Tokens/Signatures", "Uses Geo location", "Uses Device Detection", "Uses BBR"];
 
-//var workingSheetColumnNames = ["Column Titles", "Customer Name", "Customer ID", "Service Name", "Service ID", "CHR", "Hits", "Misses", "Edge to Shield", "Edge Response Header Bytes", "Edge Response Body Bytes", "Origin Fetch Response Header Bytes", "Origin Fetch Response Body Bytes", "Passes", "Video traffic (Response count)", "OTFP Traffic (Response count)", "WAF Requests Logged", "WAF Requests Blocked", "Bandwidth total in GB", "Image Opto Traffic", "Requests", "Origin Fetches",  "Uses Shielding", "Uses Image Opto", "Uses GZIP", "Uses WAF", "Uses Logging", "Uses Deliver Stale", "Uses Auto Director", "Uses Segmented Caching", "Uses OTFP", "Snippets", "Streaming miss", "ACLs", "Edge dictionary", "Synthetic response", "ESI response", "Crypto functions", "Uses Tokens/Signatures", "Uses Geo location", "Uses Device Detection", "Uses BBR"];
-
 var workingSheetColumnValues = ["Values", "-", "-", "-", "-", "hit_ratio", "hits", "miss", "edge_resp_header_bytes", "edge_resp_body_bytes", "origin_fetch_resp_header_bytes", "origin_fetch_resp_body_bytes", "pass", "video", "otfp", "waf_logged", "waf_blocked", "bandwidth", "imgopto", "requests", "edge_requests", "origin_fetches", "shield_[s]*[s]*[l]*[_]*cache", "set req.http.[xX]-[fF]astly-[iI]mageopto-[aA]pi = ", "set beresp.gzip = true", "waf", "log *{\\\\\"", "deliver_stale", "autodirector_", "set req.enable_segmented_caching", "vpop", "[Ss]nippet", "do_stream", "acl", "table", "[Ss]ynthetic", "[Ee][Ss][Ii]", "crypto", "digest", "client.geo", "client.((?!geo)identified|display|browser|bot|class|platform|client|os)", "set client.socket.congestion_algorithm = \"bbr\""];
-
-//var workingSheetColumnValues = ["Values", "-", "-", "-", "-", "hit_ratio", "hits", "miss", "shield", "edge_resp_header_bytes", "edge_resp_body_bytes", "origin_fetch_resp_header_bytes", "origin_fetch_resp_body_bytes", "pass", "video", "otfp", "waf_logged", "waf_blocked", "bandwidth", "imgopto", "requests", "origin_fetches", "shield_[s]*[s]*[l]*[_]*cache", "set req.http.[xX]-[fF]astly-[iI]mageopto-[aA]pi = ", "set beresp.gzip = true", "waf", "log *{\\\\\"", "deliver_stale", "autodirector_", "set req.enable_segmented_caching", "vpop", "[Ss]nippet", "do_stream", "acl", "table", "[Ss]ynthetic", "[Ee][Ss][Ii]", "crypto", "digest", "client.geo", "client.((?!geo)identified|display|browser|bot|class|platform|client|os)", "set client.socket.congestion_algorithm = \"bbr\""];
-
 
 var vclRowInfo = 23;
 var chrRowInfo = 6;
@@ -109,34 +104,26 @@ function setupSpreadSheet(region)
   
 
   if (workingSheet == "" || workingSheet == undefined || workingSheet == null) {
-    //ss.insertSheet(0); 
-    //sheets = ss.getSheets();
+    
     var sheet = ss.insertSheet();
     workingSheet = sheet.setName("Data - "+region);
-    //workingSheet = sheets[0].setName("Data+"+region);
     
   }
   
   if (otherInfoSheet == "" || otherInfoSheet == undefined || otherInfoSheet == null) {
-    //ss.insertSheet();
-    //sheets = ss.getSheets();
-    //otherInfoSheet = sheets[1].setName("Other customer info");
+    
     var sheet = ss.insertSheet();
     otherInfoSheet = sheet.setName("Other customer info");
   }
   
   if (maintSheet == "" || maintSheet == undefined || maintSheet == null) {
-    //ss.insertSheet(2);
-    //sheets = ss.getSheets();
-    //maintSheet = sheets[2].setName("Maintenance");
+    
     var sheet = ss.insertSheet();
     maintSheet = sheet.setName("Maintenance");
   }
   
   if (certInfoSheet == "" || certInfoSheet == undefined || certInfoSheet == null) {
-    //ss.insertSheet(3);
-    //sheets = ss.getSheets();
-    //certInfoSheet = sheets[3].setName("Cert info");
+    
     var sheet = ss.insertSheet();
     certInfoSheet = sheet.setName("Cert info");
   }
@@ -156,13 +143,8 @@ function setupSpreadSheet(region)
   var sheets = ss.getSheets();
   var htmlOutputFromFile;
   var htmlOutput;
-  
-  //var maintSheet = ss.getSheetByName("Maintenance");
-  //var workingSheet = ss.getSheetByName("Data");
  
   values = maintSheet.getDataRange().getValues();
-  //Logger.log(values.length);
-  //Logger.log("The VCL row value is " + values[1][2]);
 
   if (values.length > 1) {
     for(var j=1, jLen=values.length; j<jLen; j++) {
@@ -173,24 +155,20 @@ function setupSpreadSheet(region)
   } else {
     
     for (var i =0; i<workingSheetColumnNames.length; i++) {
-      //shFormResponses.getRange(0, i).setValue(workingSheetColumnNames.);
+      
       maintSheet.getRange(i+1, 1).setValue(workingSheetColumnNames[i].valueOf());    
     }
     
     for (var i =0; i<workingSheetColumnNames.length; i++) {
-      //shFormResponses.getRange(0, i).setValue(workingSheetColumnNames.);
+      
       maintSheet.getRange(i+1, 2).setValue(workingSheetColumnValues[i].valueOf());    
     }
     maintSheet.getRange(1, 1, 1, 4).setFontWeight('bold');
     maintSheet.getRange(1, 1, 1, 4).setBackground("#cccc00");
     
-    //maintSheet.getRange(1, 3).setFontWeight('bold');
-    //maintSheet.getRange(1, 3).setBackground("#cccc00");
     maintSheet.getRange(1, 3).setValue("VCL Row Info");
     maintSheet.getRange(2, 3).setValue(vclRowInfo);
     
-    //maintSheet.getRange(1, 4).setFontWeight('bold');
-    //maintSheet.getRange(1, 4).setBackground("#cccc00");
     maintSheet.getRange(1, 4).setValue("CHR Row Info");
     maintSheet.getRange(2, 4).setValue(chrRowInfo);
     
@@ -198,7 +176,7 @@ function setupSpreadSheet(region)
 
     
     for (var i =0; i<otherInfoSheetCells.length; i++) {
-      //shFormResponses.getRange(0, i).setValue(workingSheetColumnNames.);
+      
       otherInfoSheet.getRange(i+1, 1).setValue((otherInfoSheetCells[i].valueOf()));    
     }
   }
@@ -206,7 +184,7 @@ function setupSpreadSheet(region)
 
   vclRow = values[1][2];
   chrRow = values[2][3];
-  //fastlyKey = values[1][3];
+
   if (!vclRow) {
     vclRow = vclRowInfo;
   }
@@ -230,11 +208,6 @@ function setupSpreadSheet(region)
   
   htmlOutputFromFile = HtmlService.createHtmlOutputFromFile('proteus').setTitle("Please enter Customer ID & Key");
   
-  //htmlOutput = HtmlService.createHtmlOutput(htmlOutputFromFile.getContent()).setTitle('TLS Information:').setSandboxMode(HtmlService.SandboxMode.IFRAME);
-  //ui.showModalDialog(htmlOutput, "Get TLS Info")
-  //htmlOutput = HtmlService.createHtmlOutput(UrlFetchApp.fetch('https://proteus.app.secretcdn.net/tls/sans/').getBlob());
-  //htmlOutput = HtmlService.createHtmlOutput(UrlFetchApp.fetch('https:www.google.com').getBlob());
-  //ui.showModalDialog(htmlOutput, "Get TLS Info");
   ui.showSidebar(htmlOutputFromFile);
   
 }
@@ -246,14 +219,13 @@ function showSite() //Disabled
   var htmlOutput;
   var ui = SpreadsheetApp.getUi();
   htmlOutput = HtmlService.createHtmlOutput(UrlFetchApp.fetch('https://proteus.app.secretcdn.net/tls/sans/').getBlob());
-  //htmlOutput = HtmlService.createHtmlOutput(UrlFetchApp.fetch('https:www.google.com').getBlob());
+
   ui.showModalDialog(htmlOutput, "Get TLS Info");
   
 }
 
 function getMeCustInfo(formObj)
 {
-
   var customerName = null;
   var ss = SpreadsheetApp.getActive();
   var sheets = ss.getSheets();
@@ -290,14 +262,6 @@ function getMeCustInfo(formObj)
 
   workingSheet.getRange(2, 1, workingSheet.getMaxRows()-1, workingSheet.getMaxColumns()).clear();
   
-  //showAlert(Date(svcIdFrom));
-  //var date = new Date('February 17, 2018 13:00:00 -0500');
-  //var date = new Date(svcIdFrom);
-  //showAlert(Utilities.formatDate(date, 'America/New_York', 'MM dd yyyy HH:mm:ss Z'));
-  //showAlert(Utilities.formatDate(date, 'America/New_York', 'MM dd yyyy'));
-  //showAlert(Utilities.formatDate(new Date(svcIdFrom), 'America/New_York', 'MM dd yyyy'));
-  //showAlertUtilities.formatDate(Date(svcIdFrom), Session.getTimeZone(), 'MMMM dd, yyyy');
-  
   if (customerId == null || customerId == undefined || !customerId) {
     SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
       .alert('You can\'t leave customer ID blank!');
@@ -314,69 +278,34 @@ function getMeCustInfo(formObj)
   
   var now = new Date();
   var timezone = Session.getTimeZone();
-  /*var shortDate = Utilities.formatDate(now, timezone, 'yyyy-MM-dd');*/
+
   var shortDate = Utilities.formatDate(now, "GMT", 'yyyy-MM-dd');
   var fromDate = 0;
   var fromDatePlainText;
   if (svcIdFrom) {
-    //showAlert("This is svcIdFrom " + svcIdFrom);
     var frmTime = new Date(svcIdFrom).getTime();
-    
-    /*frmTime = frmTime + MILLIS_PER_DAY;
-    //fromDate = Utilities.formatDate(new Date(svcIdFrom), timezone, 'MM dd yyyy'); // For some reason if you don't add one day it will return date input minus 1 day
-    fromDatePlainText = Utilities.formatDate(new Date(frmTime), timezone, 'MM dd yyyy'); // For some reason if you don't add one day it will return date input minus 1 day
-    fromDate = Utilities.formatDate(new Date(frmTime), timezone, 'MM');
-    fromDate = fromDate+"%2F"+Utilities.formatDate(new Date(frmTime), timezone, 'dd');
-    fromDate = fromDate+"%2F"+Utilities.formatDate(new Date(frmTime), timezone, 'YYY');
-    */
     
     
     fromDatePlainText = Utilities.formatDate(new Date(frmTime), "GMT", 'MM dd yyyy'); // For some reason if you don't add one day it will return date input minus 1 day
-    //fromDate = Utilities.formatDate(new Date(frmTime), "GMT", 'MM');
-    //fromDate = fromDate+"%2F"+Utilities.formatDate(new Date(frmTime), "GMT", 'dd');
-    //fromDate = fromDate+"%2F"+Utilities.formatDate(new Date(frmTime), "GMT", 'YYY');
     fromDate = Utilities.formatDate(new Date(frmTime), "GMT", "yyyy-MM-dd'T'HH:mm:ss'Z'");
-    
-    //showAlert("This is From date " + fromDate);
-    //showAlert("This is Time Zone " + timezone);
     
   }
   var toDate = 0;
   var toDatePlainText;
   if (svcIdTo) {
-    //showAlert("This is svcIdTo " + svcIdTo);
-    var toTime = new Date(svcIdTo).getTime();
     
-    /*toTime = toTime + MILLIS_PER_DAY;
-    //toDate = Utilities.formatDate(new Date(svcIdTo), timezone, 'MM dd yyyy'); // For some reason if you don't add one day it will return date input minus 1 day
-    toDatePlainText = Utilities.formatDate(new Date(toTime), timezone, 'MM dd yyyy'); // For some reason if you don't add one day it will return date input minus 1 day
-    toDate = Utilities.formatDate(new Date(toTime), timezone, 'MM');
-    toDate = toDate+"%2F"+Utilities.formatDate(new Date(toTime), timezone, 'dd');
-    toDate = toDate+"%2F"+Utilities.formatDate(new Date(toTime), timezone, 'YYY');
-    */
-    
+    var toTime = new Date(svcIdTo).getTime(); 
     
     toTime = toTime - MILLIS_PER_DAY;
     toDatePlainText = Utilities.formatDate(new Date(toTime), "GMT", 'MM dd yyyy'); // For some reason if you don't add one day it will return date input minus 1 day
-    //toDate = Utilities.formatDate(new Date(toTime), "GMT", 'MM');
-    //toDate = toDate+"%2F"+Utilities.formatDate(new Date(toTime), "GMT", 'dd');
-    //toDate = toDate+"%2F"+Utilities.formatDate(new Date(toTime), "GMT", 'YYY');
     
     toTime = toTime + MILLIS_PER_DAY;
     toDate = Utilities.formatDate(new Date(toTime), "GMT", "yyyy-MM-dd'T'HH:mm:ss'Z'");
-    //showAlert("This is To date " + toDate);
   }
   
-  /*if (!svcIdTo || !svcIdFrom)
-    DriveApp.getFileById(ss.getId()).setName("Report for: " + customerName + " CID: " + customerId + "-: " + shortDate + " (All stats past 90 days)");
-  else
-    DriveApp.getFileById(ss.getId()).setName("Report for: " + customerName + " CID: " + customerId + "- From:" + fromDatePlainText + " To: " + toDatePlainText);  
-  */
   DriveApp.getFileById(ss.getId()).setName("Report for: " + customerName + " CID: " + customerId + " - Last run date - " + shortDate);
   
   resultObj = populateSvcInfo(customerId);
-  //showAlert(JSON.stringify(resultObj));
-  //showAlert(vclRow);
   
   values = maintSheet.getDataRange().getValues(); //If user entered new values (i.e. VCL) we fetch them once more here
   if (values.length > 1) {
@@ -395,7 +324,7 @@ function getMeCustInfo(formObj)
   }
   vclRow = values[1][2];
   chrRow = values[1][3];
-  //fastlyKey = values[1][3];
+  
   if (!vclRow) {
     vclRow = vclRowInfo;
   }
@@ -428,21 +357,21 @@ function getMeCustInfo(formObj)
   ui.showSidebar(htmlOutput);
   
   workingSheet.activate();
-  
-  //showAlert ("Service number From" + svcNumFrom);
-  //showAlert ("Service number To" + svcNumTo);
+
   var indexFrom = svcNumFrom?(svcNumFrom-1):0;
   var indexTo = svcNumTo?(svcNumTo):Object.keys(resultObj).length;
   var maxSvcNum = Object.keys(resultObj).length;
-  //showAlert("Index from count" + indexFrom);
-  //showAlert("Index max count" + indexTo);
-  //for (var i = svcNumFrom?(svcNumFrom-1):0; i<svcNumTo?(svcNumTo):Object.keys(resultObj).length; i++) {
-  
+   
   if (formObj.fastly_svc_id) {
-    var csv_fastly_svc_ids = formObj.fastly_svc_id;
-    var fastly_svc_ids = csv_fastly_svc_ids.toString().split(", ");
+    var csv_fastly_svc_ids = formObj.fastly_svc_id.toString();
+    
+    csv_fastly_svc_ids = csv_fastly_svc_ids.replace(/\s/g, "");
+    //showAlert(csv_fastly_svc_ids);
+    var fastly_svc_ids = csv_fastly_svc_ids.split(",");
+    
     var svcName = "";
     for(var i=0;i<fastly_svc_ids.length;i++){
+      
       for (var j = 0; j<maxSvcNum; j++) {
         if (resultObj[j]["id"] == fastly_svc_ids[i]) {
           svcName = resultObj[j]["name"];
@@ -463,13 +392,14 @@ function getMeCustInfo(formObj)
     }
   }
     
-  //for (var i = svcNumFrom?(svcNumFrom-1):0; i<svcNumTo?(svcNumTo):Object.keys(resultObj).length; i++)
   if (formObj.fastly_svc_id) {
-    var csv_fastly_svc_ids = formObj.fastly_svc_id;
-    var fastly_svc_ids = csv_fastly_svc_ids.toString().split(", ");
+    var csv_fastly_svc_ids = formObj.fastly_svc_id.toString();
+    csv_fastly_svc_ids = csv_fastly_svc_ids.split(" ").join("");
+    
+    var fastly_svc_ids = csv_fastly_svc_ids.split(",");
     var version = 1;
     for(var i=0;i<fastly_svc_ids.length;i++){
-      //showAlert(fastly_svc_ids[i]);
+      
       for (var j = 0; j<maxSvcNum; j++) {
         if (resultObj[j]["id"] == fastly_svc_ids[i]) {
           version = resultObj[j]["version"];
@@ -494,7 +424,6 @@ function getMeCustInfo(formObj)
   } else {
     for (var i = indexFrom; i<indexTo; i++)
     {
-      //showAlert(resultObj[i]["id"] + " " + resultObj[i]["version"]);
       serviceInfoFromVCL = getServiceInfoFromVCL(resultObj[i]["id"], resultObj[i]["version"], fetchValues, vclRow, fastlyKey);
       if (serviceInfoFromVCL == undefined)
         return;    
@@ -512,10 +441,10 @@ function getMeCustInfo(formObj)
     }
   }
   
-  //  for (var i = svcNumFrom?(svcNumFrom-1):0; i<svcNumTo?(svcNumTo):Object.keys(resultObj).length; i++)
   if (formObj.fastly_svc_id) {
-    var csv_fastly_svc_ids = formObj.fastly_svc_id;
-    var fastly_svc_ids = csv_fastly_svc_ids.toString().split(", ");
+    var csv_fastly_svc_ids = formObj.fastly_svc_id.toString();
+    csv_fastly_svc_ids = csv_fastly_svc_ids.replace(/\s/g, "");
+    var fastly_svc_ids = csv_fastly_svc_ids.split(",");
     
     for(var i=0;i<fastly_svc_ids.length;i++){
       statInfo = getStatInfo(fastly_svc_ids[i], fetchValues, vclRow, chrRow, fromDate, toDate, formObj.region, fastlyKey);
@@ -536,7 +465,6 @@ function getMeCustInfo(formObj)
   } else { 
     for (var i = indexFrom; i<indexTo; i++)
     {
-      //showAlert(resultObj[i]["id"] + " " + resultObj[i]["version"]);
       statInfo = getStatInfo(resultObj[i]["id"], fetchValues, vclRow, chrRow, fromDate, toDate, formObj.region, fastlyKey);
       if (statInfo == undefined)
         return;
@@ -576,8 +504,6 @@ function getMeCustInfo(formObj)
     var billingYear = Utilities.formatDate(ninetyDaysAgo, timezone, 'YYYY');
     billingInfo = getBillingInfo(formObj.customer_id, billingMonth, billingYear, fastlyKey);
   }
-  //showAlert(JSON.stringify(billingInfo));
-  
   if (formObj.acc_certData == "on") {
    getCertInfo(formObj.customer_id, fastlyKey); 
   }
@@ -672,13 +598,8 @@ function getCertInfo(customerId, fastlyKey)
         iIndex++
       }
       for (var i in parsedResult['data']) {
-        //retValArr.push({"Extra Item -" :parsedResult['total']['extras'][i]['name']}, {"Recurring cost -" :parsedResult['total']['extras'][i]['recurring']});
-        //retValArr.push(parsedResult['data']['extras'][i]['name']);
-        
         var certAttr = parsedResult['data'][i]['attributes'];
         for (j in certAttr) {
-          //showAlert(Object.keys(parsedResult['data'][i]['attributes'][j]).toString);
-          //certInfoSheet.getRange(1+Math.round(i)+jIndex, 1).setValue(parsedResult['data'][i]['attributes'][j].valueOf());
           certInfoSheet.getRange(1+iIndex+jIndex, 1).setValue(j);
           certInfoSheet.getRange(1+iIndex+jIndex, 2).setValue(parsedResult['data'][i]['attributes'][j]);
           certInfoSheet.getRange(1+iIndex+jIndex, 1).setBackground('#80dfff');
@@ -702,9 +623,6 @@ function getCertInfo(customerId, fastlyKey)
         certInfoSheet.getRange(1+iIndex+jIndex, 2).setFontStyle('italic');
         certInfoSheet.getRange(1+iIndex+jIndex, 2).setWrap(true);
         certInfoSheet.getRange(1+iIndex+jIndex, 2).setBackground("#ffff00");
-        /*for (j in parsedResult['data'][i]['relationships']['tls_domains']['data']) {
-          certInfoSheet.getRange(1+iIndex+jIndex, 2+Math.round(j)).setValue(parsedResult['data'][i]['relationships']['tls_domains']['data'][j]['id']);
-        }*/
         for (var k in parsedResult['data'][i]['relationships']['tls_domains']['data']) {
           certInfoSheet.getRange(2+iIndex+jIndex, 2).setValue("Cert domain: " + (Math.round(k)+1));
           certInfoSheet.getRange(2+iIndex+jIndex, 3).setValue(parsedResult['data'][i]['relationships']['tls_domains']['data'][k]['id']);
@@ -717,14 +635,6 @@ function getCertInfo(customerId, fastlyKey)
           certInfoSheet.getRange(2+iIndex+jIndex, 3).setBackground("#ffff00");
           iIndex++;
         }
-        /*certInfoSheet.getRange(1+iIndex+jIndex, 1).setBackground('#80dfff');
-        certInfoSheet.getRange(1+iIndex+jIndex, 1).setFontWeight('bold');
-        certInfoSheet.getRange(1+iIndex+jIndex, 1).setWrap(true);
-        
-        certInfoSheet.getRange(1+iIndex+jIndex, 2).setFontStyle('italic');
-        certInfoSheet.getRange(1+iIndex+jIndex, 2).setWrap(true);
-        certInfoSheet.getRange(1+iIndex+jIndex, 2).setBackground("#ffff00");*/
-        
         jIndex++;
         iIndex++;
         
@@ -757,13 +667,10 @@ function getCertInfo(customerId, fastlyKey)
       return retValArr;
     }
     
-    
     jIndex++;
-    //  if (!iIndex) { //We know that nothing moved in previous code block so fetch domains individually
     if (pageNum < 2) {
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Fastly Hosted Certs");
-      
-      
+
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setBackground('#80dfff');
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setFontWeight('bold');
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setWrap(true);
@@ -771,7 +678,7 @@ function getCertInfo(customerId, fastlyKey)
       iIndex++
     }
       for (var i in parsedResultDomains['data']) {
-        //certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Cert #"+ Math.round(Math.round(i)+1+(100*(pageNum-1))) + " with ID: ");
+        
         certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Cert ID: " + Math.round(Math.round(i)+1+((pageNum-1)*20)));
         certInfoSheet.getRange(1+jIndex+iIndex, 2).setValue(parsedResultDomains['data'][i]['id']);
         certInfoSheet.getRange(1+jIndex+iIndex, 1).setBackground('#80dfff');
@@ -795,7 +702,7 @@ function getCertInfo(customerId, fastlyKey)
           iIndex++;
         }
       }
-    //  }
+  
     Logger.log("This is the value per_page for domains " + parsedResultDomains['meta']['per_page']);
     Logger.log("This is the current page for domains " + parsedResultDomains['meta']['current_page']);
     Logger.log("This is the record count for domains " + parsedResultDomains['meta']['record_count']);
@@ -825,8 +732,6 @@ function getCertInfo(customerId, fastlyKey)
     }
     
     if (parsedResultTotalDomains['data']) {
-      //jIndex++;
-      //  if (!iIndex) { //We know that nothing moved in previous code block so fetch domains individually
       if (pageNum < 2) {
         certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Total TLS Activations");
         
@@ -865,13 +770,8 @@ function getCertInfo(customerId, fastlyKey)
  
   var carryOverCert = "";
   
-  /* do {
-    pageNum++;
-    */
-  
     try {
       
-      //globalsignDomains = UrlFetchApp.fetch('https://api.fastly.com/tls/globalsign/domains?customer_id=' + customerId + "&page%5Bnumber%5D=" + pageNum, options_gs);
       globalsignDomains = UrlFetchApp.fetch('https://api.fastly.com/tls/globalsign/domains?customer_id=' + customerId, options_gs);
       
     }  catch (err) {
@@ -885,55 +785,16 @@ function getCertInfo(customerId, fastlyKey)
     if(errCheck[0] == "errors") {
       return retValArr;
     }
-  
-  //Logger.log("errors = " + Object.keys(parsedResultGlobalsignDomains));
-  
-   /*if (parsedResultGlobalsignDomains) {
-    jIndex++;
-    
-    certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Total Globalsign Domains");
-    
-    certInfoSheet.getRange(1+jIndex+iIndex, 1).setBackground('#80dfff');
-    certInfoSheet.getRange(1+jIndex+iIndex, 1).setFontWeight('bold');
-    certInfoSheet.getRange(1+jIndex+iIndex, 1).setWrap(true);
-    jIndex++;
-    for (var i in parsedResultGlobalsignDomains) {
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Globalsign Cert ID");
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setValue(parsedResultGlobalsignDomains[i]['certificate_id']);
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setBackground('#80dfff');
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setFontWeight('bold');
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setWrap(true);
-      
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setFontStyle('italic');
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setWrap(true);
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setBackground("#ffff00");
-      
-      iIndex++;
-      
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Globalsign Domain");
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setValue(parsedResultGlobalsignDomains[i]['fqdn']);
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setBackground('#80dfff');
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setFontWeight('bold');
-      certInfoSheet.getRange(1+jIndex+iIndex, 1).setWrap(true);
-      
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setFontStyle('italic');
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setWrap(true);
-      certInfoSheet.getRange(1+jIndex+iIndex, 2).setBackground("#ffff00");
-      iIndex++;
-    }
-  }*/
     
   if (parsedResultGlobalsignDomains) {
-    //jIndex++;
-    //  if (!iIndex) { //We know that nothing moved in previous code block so fetch domains individually
-    //if (pageNum < 2) {
+    
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setValue("Total Globalsign Domains");
       
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setBackground('#80dfff');
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setFontWeight('bold');
       certInfoSheet.getRange(1+jIndex+iIndex, 1).setWrap(true);
       jIndex++;
-    //}
+    
     var domainNumber = 1;
     for (var i in parsedResultGlobalsignDomains) {
       //certInfoSheet.getRange(1+jIndex+iIndex, 2).setValue(parsedResultGlobalsignDomains['data'][i]['certificate_id']);
@@ -968,8 +829,7 @@ function getCertInfo(customerId, fastlyKey)
     }
     
   }
-  //} while (pageNum < parseInt (parsedResultGlobalsignDomains['meta']['total_pages']));
-
+  
   return retValArr;
 }
 
@@ -1021,7 +881,6 @@ function getBillingInfo(customerId, month, year, fastlyKey)
   
   try {
     
-    //result = UrlFetchApp.fetch('https://api.fastly.com/billing/v2/account_customers/' + customerId + '/mtd_invoice?month='+ month + '&year=' + year, options);
     result = UrlFetchApp.fetch('https://api.fastly.com/billing/v2/account_customers/' + customerId + '/invoices', options);
     
   }  catch (err) {
@@ -1029,24 +888,6 @@ function getBillingInfo(customerId, month, year, fastlyKey)
       return undefined;
   }
   
-  /* parsedResult = JSON.parse(result.getContentText()); */
-  /* For first run the billing info API doesn't fetch anything so trying again and also printing a meaningful error message on sheet to try again */
-  
-    /*
-  if (parsedResult['total'] == undefined) {
-    Logger.log("getBillingInfo parsedResult total was undefined so trying again"); 
-    try {
-      
-      //result = UrlFetchApp.fetch('https://api.fastly.com/billing/v2/account_customers/' + customerId + '/mtd_invoice?month='+ month + '&year=' + year, options);
-      result = UrlFetchApp.fetch('https://api.fastly.com/billing/v2/account_customers/' + customerId + '/invoices, options);
-      
-    }  catch (err) {
-      showAlert("From getBillingInfo 1:" + err);
-      return undefined;
-    }
-  }
-  */
-    
   var monthStr = ourMonths[months[Math.round(month)-1]];
   parsedResult_preProc = JSON.parse(result.getContentText());
   
@@ -1109,13 +950,11 @@ function getBillingInfo(customerId, month, year, fastlyKey)
         retValArr.push({"Cost Before Discount": "Couldn't fetch. Please rerun the app and try again"});
       }
       
-      //retValArr.push(parsedResult['total']['extras']);
-      
       if (parsedResult['total']['extras'] != undefined) {
         for (var i in parsedResult['total']['extras']) {
-          //retValArr.push([{"Extra Item -" :parsedResult['total']['extras'][i]['name']}, {"Recurring cost -" :parsedResult['total']['extras'][i]['recurring']}]);
+        
           retValArr.push({"Extra Item -" :parsedResult['total']['extras'][i]['name']}, {"Recurring cost -" :parsedResult['total']['extras'][i]['recurring']});
-          //retValArr.push();
+        
         }
       } else {
         retValArr.push({"Extra Item -": "Couldn't fetch. Please rerun the app and try again"});
@@ -1132,15 +971,6 @@ function getBillingInfo(customerId, month, year, fastlyKey)
     }
     
     values = otherInfoSheet.getDataRange().getValues();
-    //otherInfoSheet.setTextStyle(values.length+1, 1, bold);
-    //otherInfoSheet.getRange(values.length+1, 1).setBackground('blue');
-    /*var bold = SpreadsheetApp.newTextStyle().setBold(true).build();
-    var italic = SpreadsheetApp.newTextStyle().setItalic(true).build();
-    var cellValue = SpreadsheetApp.newRichTextValue()
-    .setText("Billing MTD for "+ months[month] + ", " + year)
-    .setTextStyle(0, 5, bold)
-    .setTextStyle(italic)
-    .build();*/
     
     otherInfoSheet.getRange(values.length+1, 1).setValue("Billing MTD for "+ months[Math.round(month)-1] + ", " + year);
     otherInfoSheet.getRange(values.length+1, 1).setBackground("#cccc00");
@@ -1150,20 +980,9 @@ function getBillingInfo(customerId, month, year, fastlyKey)
     values = otherInfoSheet.getDataRange().getValues();
     
     for (var i in retValArr) {
-      //showAlert(i);    
+         
       for (j in retValArr[i]) {
-        
-        /*
-        showAlert(j);
-        showAlert(retValArr[i][j]);
-        for (k in Object.keys(j)) {
-        otherInfoSheet.getRange(values.length+Math.round(i)+1, k+1).setValue(j);
-        otherInfoSheet.getRange(values.length+Math.round(i)+1, k+2).setValue(retValArr[i][j]);
-        }
-        */
-        //otherInfoSheet.getRange(values.length+Math.round(i)+1, 1).setBackground('blue');
-        //otherInfoSheet.setTextStyle(values.length+Math.round(i)+1, 1, bold);
-        //otherInfoSheet.getRange(values.length+1, 1).setBackground("red");
+      
         otherInfoSheet.getRange(values.length+Math.round(i)+1, 1).setBackground('#80dfff');
         otherInfoSheet.getRange(values.length+Math.round(i)+1, 1).setFontWeight('bold');
         otherInfoSheet.getRange(values.length+Math.round(i)+1, 1).setWrap(true);
@@ -1217,7 +1036,7 @@ function getStatInfo(serviceId, fetchValues, vclRow, chrRow, fromDate, toDate, r
     statInfo = 0;
     try {
       if (fromDate || toDate) {
-        //showAlert("From date:" + fromDate + " To date:" + toDate);
+        
         result = UrlFetchApp.fetch('https://api.fastly.com/stats/service/'+ serviceId +'/field/'+ fetchValues[f] + '?from='+fromDate + '&to=' + toDate + '&region=' + region, options);
       } else {
         result = UrlFetchApp.fetch('https://api.fastly.com/stats/service/'+ serviceId +'/field/'+ fetchValues[f] + '?from=90+days+ago' + '&region=' + region, options);
@@ -1271,10 +1090,10 @@ function getStatInfo(serviceId, fetchValues, vclRow, chrRow, fromDate, toDate, r
       var result = 0;
       for (var i in parsedResult['data']) {
         result += parsedResult['data'][i][fetchValues[f]];
-        //showAlert("This is the data " + fetchValues[f] + " value " + statInfo)
+        
       }
       statInfo = result;
-      //showAlert("From date " + fromDate + " To date " + toDate + " data length " + Object.keys(parsedResult['data']).length + "This is the data " + JSON.stringify(parsedResult['data']) + " value " + statInfo);
+      
     }  
 
       retValArr.push(statInfo);
