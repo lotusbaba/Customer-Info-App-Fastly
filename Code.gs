@@ -1,14 +1,3 @@
-function myFunction() {
-
-var myDog = "{\"name\": \"Rhino\", \"breed\": \"pug\", \"age\": 8}";
-var myDogObj = JSON.parse(myDog);
-var myJSON = JSON.stringify(myDog);
-  Logger.log(myDogObj['name']);
-  //abcObj = JSON.parse(abc);
-  //console.log(abc.value['results']);
-  //Logger.log(abc.value['results']);
-}
-
 function getRightApp()
 {
   var uiTypeSpreadsheet = null;
@@ -29,27 +18,6 @@ function getRightApp()
     console.error('SpreadsheetApp.getUi() yielded an error: ' + err + " with UI type " + uiTypeSpreadsheet);
   }
 
-  /*try {
-    uiTypeDocument = DocumentApp.getUi(); // Function to time.
-    Logger.log("This is the document getUI output");
-    Logger.log(uiTypeDocument);
-    retVal["thisApp"]  = DocumentApp;
-    retVal["thisAppString"] = "DocumentApp";
-  } catch (err) {
-    // Logs an ERROR message.
-    console.error('DocumentApp.getUi() yielded an error: ' + err + " with UI type " + uiTypeDocument);
-  }
-  
-  try {
-    uiTypeSlides = SlidesApp.getUi(); // Function to time.
-    Logger.log("This is the document getUI output");
-    Logger.log(uiTypeSlides);
-    retVal["thisApp"]  = SlidesApp;
-    retVal["thisAppString"] = "SlidesApp";
-  } catch (err) {
-    // Logs an ERROR message.
-    console.error('SlidesApp.getUi() yielded an error: ' + err + " with UI type " + uiTypeSlides);
-  }*/
   return retVal;
 }
 
@@ -147,6 +115,7 @@ function setupSpreadSheet(region)
   values = maintSheet.getDataRange().getValues();
 
   if (values.length > 1) {
+    fetchValues = [];
     for(var j=1, jLen=values.length; j<jLen; j++) {
       Logger.log (values[j][0]);
       workingSheet.getRange(1, j).setValue(values[j][0]);
@@ -194,6 +163,7 @@ function setupSpreadSheet(region)
   
   if (values.length > 1) {
     for(var j=1, jLen=values.length; j<jLen; j++) {
+      fetchValues = [];
       Logger.log (values[j][0]);
       workingSheet.getRange(1, j).setFontWeight('bold');
       workingSheet.getRange(1, j).setBackground("#cccc00");
@@ -309,6 +279,7 @@ function getMeCustInfo(formObj)
   
   values = maintSheet.getDataRange().getValues(); //If user entered new values (i.e. VCL) we fetch them once more here
   if (values.length > 1) {
+    fetchValues = [];
     for(var j=1, jLen=values.length; j<jLen; j++) {
       Logger.log (values[j][1]);
       workingSheet.getRange(1, j).setFontWeight('bold');
@@ -415,7 +386,7 @@ function getMeCustInfo(formObj)
         workingSheet.getRange(i+2-indexFrom, vclRow-1+j).setValue(serviceInfoFromVCL[j]);
       }
       var htmlOutput = HtmlService
-      .createHtmlOutput(fastlyLogo.getRawContent() + '<div> <p> Currently gathering info on Service #'+ Math.round(i+1) + ' out of: ' + Object.keys(resultObj).length + ' services </p> </div>')
+      .createHtmlOutput(fastlyLogo.getRawContent() + '<div> <p> Currently gathering info on Service #'+ Math.round(i+1) + ' out of: ' + fastly_svc_ids.length + ' services </p> </div>')
       .setWidth(250)
       .setHeight(300).setTitle('Progress made');
       
@@ -456,7 +427,7 @@ function getMeCustInfo(formObj)
       }
       
       var htmlOutput = HtmlService
-      .createHtmlOutput(fastlyLogo.getRawContent() + '<div> <label for="file">Services covered:' + Math.round(((i+1)*100)/Object.keys(resultObj).length) +'% </label> <progress value=' + Math.round(((i+1)*100)/Object.keys(resultObj).length) + ' max="100"> </progress> <p>Currently working on Service #'+ Math.round(i+1) + ' out of: ' + Object.keys(resultObj).length + " services" + '</p> </div>')
+      .createHtmlOutput(fastlyLogo.getRawContent() + '<div> <label for="file">Services covered:' + Math.round(((i+1)*100)/fastly_svc_ids.length) +'% </label> <progress value=' + Math.round(((i+1)*100)/Object.keys(resultObj).length) + ' max="100"> </progress> <p>Currently working on Service #'+ Math.round(i+1) + ' out of: ' + fastly_svc_ids.length + " services" + '</p> </div>')
       .setWidth(250)
       .setHeight(300).setTitle('Progress made');
       
