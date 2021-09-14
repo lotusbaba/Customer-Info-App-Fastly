@@ -350,8 +350,8 @@ function getMeCustInfo(formObj)
       }
       workingSheet.getRange(i+2-indexFrom, CUSTOMER_NAME_COLUMN).setValue(customerName);
       workingSheet.getRange(i+2-indexFrom, CUSTOMER_ID_COLUMN).setValue(customerId);
-      workingSheet.getRange(i+2-indexFrom, SERVICE_NAME_COLUMN).setValue(fastly_svc_ids[i]);
-      workingSheet.getRange(i+2-indexFrom, SERVICE_ID_COLUMN).setValue(svcName);    
+      workingSheet.getRange(i+2-indexFrom, SERVICE_NAME_COLUMN).setValue(svcName);
+      workingSheet.getRange(i+2-indexFrom, SERVICE_ID_COLUMN).setValue(fastly_svc_ids[i]);    
     }
   } else {
     for (var i = indexFrom; i<indexTo; i++) {
