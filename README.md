@@ -1,4 +1,5 @@
-# Customer-Info-App-Fastly - This app will generate a Google Doc Spreadsheet with a report of your account usage over a period of time specified in the sidebar.
+# Customer-Info-App-Fastly - Generate a Google Spreadsheet with a report of your account usage.
+
 Install Instructions
 
 How to install/run? - You can make copies of this Google spreadsheet (https://docs.google.com/spreadsheets/d/1xAPnUSq8WnW4_936kjz6pJCsJQbtRRvsAJZTtakb2t0/edit?usp=sharing) and run the app by going to Add on -> Customer Info App Fastly -> Get started. This will throw up an app sidebar in the sheet that you can use to generate the report.
